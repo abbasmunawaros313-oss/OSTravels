@@ -6,7 +6,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
   FaPassport, FaMoneyBillWave, FaClock, FaCalendarAlt, FaFileAlt,
   FaBuilding, FaEnvelope, FaPhone, FaCheckCircle, FaExclamationTriangle,
-  FaLaptopCode, FaChevronDown
+  FaLaptopCode, FaChevronDown,
+  // --- ADDED ICONS ---
+  FaStar, FaQuoteLeft, FaPlane, FaHotel, FaUmbrellaBeach
 } from 'react-icons/fa';
 
 // --- Page Data ---
@@ -75,6 +77,25 @@ const faqs = [
   {
     q: "Can I get a visa on arrival?",
     a: "No, Pakistani passport holders are not eligible for a visa on arrival in Indonesia and must secure an E-Visa or Sticker Visa before traveling."
+  }
+];
+
+// --- NEW: Indonesia-Specific Reviews ---
+const reviews = [
+  {
+    name: "Ayesha K.",
+    quote: "Got my Bali (Indonesia) e-visa through O.S. Travel. They were very clear about the 10 Lac bank statement requirement, which helped me prepare. Visa arrived in 8 days!",
+    rating: 5
+  },
+  {
+    name: "Omer & Family",
+    quote: "We used O.S. Travel for our family trip to Jakarta. They handled all our e-visas, flights, and hotels. It was a completely stress-free experience.",
+    rating: 5
+  },
+  {
+    name: "Kashif B.",
+    quote: "Applied for a business sticker visa. O.S. Travel helped me coordinate with my sponsor for the invitation letter. Professional service.",
+    rating: 4
   }
 ];
 
@@ -156,6 +177,43 @@ function Indonesia() {
         </ul>
       </motion.div>
 
+      {/* --- NEW: About O.S. Travel Section --- */}
+      <motion.div
+        variants={itemVariants}
+        className="mt-12 bg-white p-6 md:p-8 rounded-lg shadow-lg"
+      >
+        <h2 className="text-3xl font-bold text-gray-800 mb-6 text-center">
+          Why Book with <span className="text-blue-600">O.S. Travel & Tours</span>?
+        </h2>
+        <p className="text-lg text-gray-600 text-center mb-8 max-w-3xl mx-auto">
+          We are a leading travel agency in Islamabad, Pakistan, dedicated to ensuring your travel experience is seamless, comfortable, and memorable. 
+          <strong className="text-gray-800">We deal in a wide range of services</strong> to handle all your travel needs.
+        </p>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <ServiceCard
+            icon={<FaPassport className="text-blue-500" />}
+            title="Visa Services"
+            desc="Expert assistance for E-Visas, Sticker Visas, and complex file preparation."
+          />
+          <ServiceCard
+            icon={<FaPlane className="text-green-500" />}
+            title="Air Ticketing"
+            desc="Competitive pricing on all domestic and international flight bookings."
+          />
+          <ServiceCard
+            icon={<FaHotel className="text-purple-500" />}
+            title="Hotel Bookings"
+            desc="Access to a wide range of hotel reservations to fit your budget."
+          />
+          <ServiceCard
+            icon={<FaUmbrellaBeach className="text-yellow-500" />}
+            title="Tour Packages"
+            desc="Customized holiday and spiritual (Umrah) packages for a perfect trip."
+          />
+        </div>
+      </motion.div>
+      {/* --- End: About O.S. Travel Section --- */}
+
       {/* 4. FAQ Section (The "Dropbox") */}
       <motion.div
         variants={itemVariants}
@@ -170,6 +228,22 @@ function Indonesia() {
           ))}
         </div>
       </motion.div>
+
+      {/* --- NEW: Review Section --- */}
+      <motion.div
+        variants={itemVariants}
+        className="mt-12"
+      >
+        <h2 className="text-3xl font-bold text-gray-800 mb-8 text-center">
+          What Our Clients Say
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {reviews.map((review, index) => (
+            <ReviewCard key={index} review={review} />
+          ))}
+        </div>
+      </motion.div>
+      {/* --- End: Review Section --- */}
 
       {/* Footer Note */}
       <motion.div variants={itemVariants} className="text-center mt-10 text-sm text-gray-500">
@@ -291,5 +365,30 @@ const AccordionItem = ({ q, a }) => {
     </div>
   );
 };
+
+// --- NEW: Service Card Component ---
+const ServiceCard = ({ icon, title, desc }) => (
+  <div className="bg-gray-50 border border-gray-200 p-6 rounded-lg text-center flex flex-col items-center">
+    <div className="text-4xl mb-4">{icon}</div>
+    <h3 className="text-xl font-bold text-gray-800 mb-2">{title}</h3>
+    <p className="text-gray-600">{desc}</p>
+  </div>
+);
+
+// --- NEW: Review Card Component ---
+const ReviewCard = ({ review }) => (
+  <div className="bg-white p-6 rounded-lg shadow-lg flex flex-col">
+    <FaQuoteLeft className="text-3xl text-blue-500 mb-4" />
+    <p className="text-gray-600 italic mb-6 grow">"{review.quote}"</p>
+    <div className="flex items-center justify-between">
+      <span className="text-lg font-semibold text-gray-800">{review.name}</span>
+      <div className="flex">
+        {[...Array(review.rating)].map((_, i) => (
+          <FaStar key={i} className="text-yellow-400" />
+        ))}
+      </div>
+    </div>
+  </div>
+);
 
 export default Indonesia;
